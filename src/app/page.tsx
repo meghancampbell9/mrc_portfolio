@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text3D, Center, Environment, OrbitControls } from '@react-three/drei';
+import { Text3D, Center, Environment, OrbitControls, Html } from '@react-three/drei';
 import { Mesh } from 'three';
 import styles from './page.module.css';
+import ContactForm from './ContactForm';
+import contactFormStyles from './ContactForm.module.css';
 
-function AnimatedText() {
+function AnimatedText({ isAnimationPaused }: { isAnimationPaused: boolean }) {
   const meshRef = useRef<Mesh>(null);
   useFrame((state) => {
-    if (meshRef.current) {
+    if (meshRef.current && !isAnimationPaused) {
       meshRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.3;
     }
   });
@@ -53,7 +55,7 @@ function AnimatedText() {
   );
 }
 
-function NavigationText() {
+function NavigationText({ setShowContactForm }: { setShowContactForm: (show: boolean) => void }) {
   return (
     <group position={[0, -7.2, 0]}>  // Changed from -6 to -7.2
       <Center>
@@ -73,6 +75,7 @@ function NavigationText() {
           size={0.4}
           height={0.08}
           curveSegments={12}
+          onClick={() => setShowContactForm(true)}
         >
           CONTACT
           <meshStandardMaterial color='#202020' metalness={0} roughness={1} />
@@ -83,6 +86,16 @@ function NavigationText() {
 }
 
 export default function Home() {
+  const [showContactForm, setShowContactForm] = useState(false);
+
+  useEffect(() => {
+    if (showContactForm) {
+      document.body.classList.add(contactFormStyles.noScroll);
+    } else {
+      document.body.classList.remove(contactFormStyles.noScroll);
+    }
+  }, [showContactForm]);
+
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
@@ -90,11 +103,16 @@ export default function Home() {
           <Environment preset="studio" background />
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
-          <AnimatedText />
-          <NavigationText />
-          <OrbitControls enableZoom={false} enablePan={false} />
+          <AnimatedText isAnimationPaused={showContactForm} />
+          <NavigationText setShowContactForm={setShowContactForm} />
+          <OrbitControls enableZoom={false} enablePan={false} enabled={!showContactForm} />
         </Canvas>
       </div>
+      {showContactForm && (
+        <div className={contactFormStyles.overlay}>
+          <ContactForm onClose={() => setShowContactForm(false)} />
+        </div>
+      )}
     </div>
   );
 }
