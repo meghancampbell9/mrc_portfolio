@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './ContactForm.module.css';
+import { useIsMobile } from './useIsMobile';
 
 interface ContactFormProps {
   onClose: () => void;
@@ -10,6 +11,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
+  const isMobile = useIsMobile();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', { name, email, message });
@@ -18,7 +21,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
 
   return (
     <div className={styles.popup}>
-      <h2 className={styles.title}>CONTACT</h2>
+      <h2 className={`${styles.title} ${isMobile ? styles.mobileTitle : ''}`}>
+        CONTACT
+      </h2>
       <div className={styles.formContainer}>
         <form onSubmit={handleSubmit}>
           <input
@@ -42,8 +47,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
             required
           ></textarea>
           <div className={styles.buttonGroup}>
-            <button type="submit" className={styles.submitButton}>Submit</button>
-            <button type="button" onClick={onClose} className={styles.cancelButton}>Cancel</button>
+            <button type="submit" className={styles.submitButton}>
+              Submit
+            </button>
+            <button type="button" onClick={onClose} className={styles.cancelButton}>
+              Close
+            </button>
           </div>
         </form>
       </div>

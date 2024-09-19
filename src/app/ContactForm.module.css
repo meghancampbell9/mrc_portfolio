@@ -28,7 +28,7 @@
     0 10px 30px rgba(0, 0, 0, 0.5), 
     0 0 30px rgba(0, 0, 0, 0.3),
     inset 0 0 15px rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  color: #F0F0F0;  /* Changed from #ffffff to #F0F0F0 to match the title */
   position: relative;
   z-index: 1001;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -57,7 +57,7 @@
 .popup textarea {
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
+  color: #F0F0F0;  /* Changed from #ffffff to #F0F0F0 */
   margin-bottom: 15px;
   padding: 10px;
   border-radius: 5px;
@@ -73,7 +73,7 @@
 
 .popup input::placeholder,
 .popup textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(240, 240, 240, 0.7);  /* Changed from rgba(255, 255, 255, 0.7) to use #F0F0F0 with opacity */
 }
 
 .buttonGroup {
@@ -89,31 +89,31 @@
 
 .submitButton,
 .cancelButton {
-  padding: 11px 17px;  /* Increased from 6px 12px to 11px 17px */
+  padding: 11px 17px;
   font-size: 12px;
   border-radius: 4px;
   text-transform: uppercase;
   font-weight: bold;
   transition: all 0.3s ease;
+  color: #F0F0F0;  /* Changed to #F0F0F0 for lighter text */
 }
 
 .submitButton {
-  background: rgba(35, 39, 42, 0.9);  /* Adjusted button style for better contrast */
-  color: #ffffff;  /* Adjusted button style for better contrast */
-  border: 1px solid rgba(255, 255, 255, 0.3);  /* Adjusted button style for better contrast */
-  margin-right: auto; /* Push to the left */
+  background: rgba(35, 39, 42, 0.9);  /* Reverted to original background color */
+  border: 1px solid rgba(255, 255, 255, 0.3);  /* Reverted to original border */
+  margin-right: auto;
 }
 
 .cancelButton {
-  background-color: rgba(32, 32, 32, 0.2);  /* Using the same color as the "WEB" text, but with transparency */
-  color: #ffffff;  /* Adjusted button style for better contrast */
-  border: 1px solid rgba(255, 255, 255, 0.3);  /* Adjusted button style for better contrast */
-  margin-left: auto; /* This will push the cancel button to the right */
+  background-color: rgba(32, 32, 32, 0.2);  /* Reverted to original background color */
+  border: 1px solid rgba(255, 255, 255, 0.3);  /* Reverted to original border */
+  margin-left: auto;
 }
 
 .submitButton:hover,
 .cancelButton:hover {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);  /* Reverted to original shadow */
+  /* Remove the background-color change on hover */
 }
 
 .closeButton {
@@ -132,17 +132,17 @@
 .title {
   margin: 0 0 30px;
   text-align: left;
-  font-size: 80px;  /* Changed from 90px to 80px */
+  font-size: 80px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   text-transform: uppercase;
-  color: #C0C0C0;
+  color: #F0F0F0;  /* Changed from #E0E0E0 to #F0F0F0 for an even lighter color */
   letter-spacing: 2px;
-  background: linear-gradient(to bottom, #FFFFFF, #C0C0C0, #A9A9A9);
+  background: linear-gradient(to bottom, #FFFFFF, #F0F0F0, #E0E0E0);  /* Adjusted gradient for even lighter colors */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);  /* Reduced shadow opacity slightly */
   line-height: 1;
   word-wrap: break-word;
   max-width: 100%;
@@ -168,3 +168,33 @@
 }
 
 /* Remove the validation icon color changes */
+
+@media (max-width: 768px) {
+  .popup {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+
+  .formContainer {
+    max-height: 60vh;
+  }
+
+  .popup input,
+  .popup textarea {
+    font-size: 14px;
+    color: #F0F0F0;  /* Added to ensure consistency on mobile */
+  }
+
+  .submitButton,
+  .cancelButton {
+    padding: 8px 12px;
+    font-size: 10px;
+    color: #F0F0F0;  /* Ensure lighter text color on mobile */
+    /* Remove the background-color change for mobile */
+  }
+}

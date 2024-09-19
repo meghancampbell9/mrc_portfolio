@@ -53,3 +53,30 @@
 .container {
   flex-grow: 1;
 }
+
+@media (max-width: 768px) {
+  .pageWrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    flex-grow: 1;
+    height: 100%;
+  }
+}
+
+.clickableText {
+  cursor: pointer;
+}
+
+.clickableOverlay {
+  position: absolute;
+  width: 100px;  /* Adjust as needed */
+  height: 30px;  /* Adjust as needed */
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
