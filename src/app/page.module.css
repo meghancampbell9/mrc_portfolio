@@ -1,0 +1,55 @@
+﻿.pageWrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.canvasContainer {
+  flex-grow: 1;
+  position: relative;
+}
+
+.navigation {
+  width: 200px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.link {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #ddd;
+}
+
+.projectGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
+
+.projectCard { border: 1px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; }
+
+.contactForm { display: flex; flex-direction: column; width: 100%; max-width: 500px; }
+
+.contactForm div { margin-bottom: 15px; }
+
+.contactForm label { display: block; margin-bottom: 5px; }
+
+.contactForm input, .contactForm textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+
+.contactForm button { padding: 10px 20px; background-color: #0070f3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+
+.container {
+  flex-grow: 1;
+}
