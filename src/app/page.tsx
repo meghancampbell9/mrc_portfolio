@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text3D, Center, Environment, OrbitControls, Html } from '@react-three/drei';
 import { Mesh } from 'three';
+import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import styles from './page.module.css';
 import ContactForm from './ContactForm';
 import contactFormStyles from './ContactForm.module.css';
@@ -96,6 +97,7 @@ function NavigationText({ setShowContactForm, isMobile }: { setShowContactForm: 
 export default function Home() {
   const [showContactForm, setShowContactForm] = useState(false);
   const isMobile = useIsMobile();
+  const orbitControlsRef = useRef<OrbitControlsImpl>(null);
 
   useEffect(() => {
     if (showContactForm) {
@@ -104,6 +106,15 @@ export default function Home() {
       document.body.classList.remove(contactFormStyles.noScroll);
     }
   }, [showContactForm]);
+
+  useEffect(() => {
+    if (orbitControlsRef.current) {
+      orbitControlsRef.current.minAzimuthAngle = -Math.PI / 4; // -45 degrees
+      orbitControlsRef.current.maxAzimuthAngle = Math.PI / 4;  // 45 degrees
+      orbitControlsRef.current.minPolarAngle = Math.PI / 4;    // 45 degrees up from horizontal
+      orbitControlsRef.current.maxPolarAngle = Math.PI * 3 / 4; // 45 degrees down from horizontal
+    }
+  }, []);
 
   return (
     <div className={styles.pageWrapper}>
@@ -114,7 +125,16 @@ export default function Home() {
           <pointLight position={[10, 10, 10]} />
           <AnimatedText isAnimationPaused={showContactForm} isMobile={isMobile} />
           <NavigationText setShowContactForm={setShowContactForm} isMobile={isMobile} />
-          <OrbitControls enableZoom={false} enablePan={false} enabled={!showContactForm} />
+          <OrbitControls 
+            ref={orbitControlsRef}
+            enableZoom={false} 
+            enablePan={false} 
+            enabled={!showContactForm}
+            minAzimuthAngle={-Math.PI / 4} // Limit to -45 degrees
+            maxAzimuthAngle={Math.PI / 4}  // Limit to 45 degrees
+            minPolarAngle={Math.PI / 4}    // 45 degrees up from horizontal
+            maxPolarAngle={Math.PI * 3 / 4} // 45 degrees down from horizontal
+          />
         </Canvas>
       </div>
       {showContactForm && (
